@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1><u>🎓 Student Management Portal</u></h1>
+    <hr>
+
+    <h2>Add New Student</h2>
+    {% if error %}
+        <p style="color: red; font-weight: bold; padding: 10px; border: 1px solid red; background-color: #ffe6e6;">
+            {{ error }}
+        </p>
+    {% endif %}
+    <form action="/" method="POST">
+       <label>Name:</label>
+        <input type="text" name="name" value="{{ student.name if student else '' }}" pattern="[A-Za-z\s]+" title="Invalid input"><br><br>
+
+        <label>Age:</label>
+        <input type="number" name="age"  min="1" required><br><br>
+
+        <label>Roll Number:</label>
+        <input type="number" name="roll_number"  min="1" required><br><br>
+
+        <button type="submit">Add Student</button>
+    </form>
+    
+    <hr>
+    {% if error %}
+        <p style="color: red; font-weight: bold; padding: 10px; border: 1px solid red; background-color: #ffe6e6;">
+            {{ error }}
+        </p>
+    {% endif %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          {% if category == 'success' %}
+            <p style="color: green; font-weight: bold; padding: 10px; border: 1px solid green; background-color: #e6ffe6; border-radius: 5px;">
+                {{ message }}
+            </p>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    
+   <h2 id="student-table">All Students</h2>
+
+    <form action="/" method="GET" style="margin-bottom: 20px; display: flex; gap: 10px; align-items: center; box-shadow: none; background: transparent; padding: 0;">
+        <input type="number" name="search" placeholder="Enter Roll Number to search..." style="margin: 0; width: 75%;">
+        <button type="submit" style="white-space: nowrap; padding: 10px 15px;">🔍 Search</button>
+        <a href="/" style="text-decoration: none; color: #e74c3c; font-weight: bold; margin-left: 10px;">Clear</a>
+    </form>
+
+<table border="1">
+        <tr>
+            <th>S.No.</th> 
+            <th>Name</th>
+            <th>Age</th>
+            <th>Roll Number</th>
+            <th>Action</th> 
+        </tr>
+        
+        {% for student in students %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ student.name }}</td>
+            <td>{{ student.age }}</td>
+            <td>{{ student.roll_number }}</td>
+            <td>
+                <a href="/edit/{{ student.id }}" style="color: blue; text-decoration: none; margin-right: 10px;">✏️ Edit</a>
+                <a href="/delete/{{ student.id }}" style="color: red; text-decoration: none;">❌ Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <script>
+        if (window.location.search.includes('search=')) {
+            document.getElementById('student-table').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
+</body>
+</html>

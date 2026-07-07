@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Student</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>✏️ Edit Student Details</h1>
+    <hr>
+
+    <form method="POST">
+        <label>Name:</label>
+        <input type="text" name="name" value="{{ student.name if student else '' }}" pattern="[A-Za-z\s]+" title="Invalid input" required><br><br>
+
+        <label>Age:</label>
+        <input type="number" name="age" value="{{ student.age }}"  min="1" required><br><br>
+
+        <label>Roll Number (Cannot be changed):</label>
+        <input type="number" name="roll_number" value="{{ student.roll_number }}" readonly style="background-color: #e9ecef; cursor: not-allowed;"><br><br>
+
+        <button type="submit">Save Changes</button>
+        <a href="/" style="margin-left: 15px; text-decoration: none; color: #e74c3c; font-weight: bold;">Cancel</a>
+    </form>
+</body>
+</html>
