@@ -26,7 +26,7 @@ def home():
             conn.commit()
             flash(f"✅ Success: {form_name} (Roll: {form_roll}) has been added!", "success")
         except sqlite3.IntegrityError:
-            error_msg = "⚠️ Error: Yeh Roll Number pehle se kisi aur student ka hai!"
+            error_msg = "⚠️ Error: This roll number already exists. Please use a unique roll number."
         finally:
             conn.close()
             

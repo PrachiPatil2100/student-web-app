@@ -28,11 +28,6 @@
     </form>
     
     <hr>
-    {% if error %}
-        <p style="color: red; font-weight: bold; padding: 10px; border: 1px solid red; background-color: #ffe6e6;">
-            {{ error }}
-        </p>
-    {% endif %}
 
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
@@ -83,5 +78,4 @@
     </script>
 </body>
 </html>
-</body>
-</html>
+
